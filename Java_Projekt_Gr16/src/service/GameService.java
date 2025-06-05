@@ -21,6 +21,11 @@ public class GameService {
     private int beerConsumption;
     private int foodConsumption;
 
+    private RankingManager rankingManager = new RankingManager();
+    private long totalSellValue = 0; // sumuj w sellResource()
+
+    private double scoreMultiplier = 1.0;
+
     public GameService() {
         this.population = new Population();
         this.resourceInventory = new ResourceInventory();
@@ -86,37 +91,48 @@ public class GameService {
 
 
     private void selectDifficulty() {
-        System.out.println("Wybierz poziom trudności:");
-        System.out.println("1. Łatwy");
-        System.out.println("2. Średni");
-        System.out.println("3. Trudny");
+        System.out.println("\nWybierz poziom trudności:");
+        System.out.println("1. Łatwy - wynik x1");
+        System.out.println("2. Średni - wynik x1.5");
+        System.out.println("3. Trudny - wynik x2");
 
-        int choice = InputUtils.getIntInput("Wybierz opcję:");
+        int choice = InputUtils.getIntInput("\nWybierz opcję:");
         switch (choice) {
             case 1:
-                maxTurns = 24; // 2 lata
+                maxTurns = 24;
                 goldTarget = 2000;
-                System.out.println("\n===========================================================================");
+                scoreMultiplier = 1.0;
+                System.out.println("\n=================================================================");
                 System.out.println("Wybrano poziom łatwy: Musisz zebrać " + goldTarget +
                         " złota w " + maxTurns + " tur.");
+                System.out.println("=================================================================");
                 break;
             case 2:
-                maxTurns = 18; // 1.5 roku
+                maxTurns = 18;
                 goldTarget = 3000;
+                scoreMultiplier = 1.5;
+                System.out.println("\n=================================================================");
                 System.out.println("\nWybrano poziom średni: Musisz zebrać " + goldTarget +
                         " złota w " + maxTurns + " tur.");
+                System.out.println("=================================================================");
                 break;
             case 3:
-                maxTurns = 12; // 1 rok
+                maxTurns = 12;
                 goldTarget = 4000;
+                scoreMultiplier = 2.0;
+                System.out.println("\n=================================================================");
                 System.out.println("\nWybrano poziom trudny: Musisz zebrać " + goldTarget +
                         " złota w " + maxTurns + " tur.");
+                System.out.println("=================================================================");
                 break;
             default:
                 System.out.println("\nNieprawidłowy wybór. Ustawiono poziom średni.");
                 maxTurns = 18;
                 goldTarget = 3000;
+                scoreMultiplier = 1.5;
+                System.out.println("\n=================================================================");
                 System.out.println("Musisz zebrać " + goldTarget + " złota w " + maxTurns + " tur.");
+                System.out.println("=================================================================");
         }
     }
 
@@ -126,7 +142,7 @@ public class GameService {
     }
 
     private void displayTurnMenu() {
-        System.out.println("\n\nTura " + currentTurn + "/" + maxTurns);
+        System.out.println("\nTura " + currentTurn + "/" + maxTurns);
         System.out.println("Złoto: " + gold + "/" + goldTarget + " | Popularność: " + popularity + " | Populacja: " + population.getPeasants());
         System.out.println("1. Ustal poziom podatków");
         System.out.println("2. Ustal spożycie piwa");
@@ -237,15 +253,24 @@ public class GameService {
     }
 
     private void checkGameOutcome() {
+        System.out.print("Podaj swój nick lordzie: ");
+        String nickname = utils.InputUtils.getStringInput("");
+        if (nickname.length() > 20) nickname = nickname.substring(0, 20);
+
+        int turnsLeft = maxTurns - (currentTurn - 1);
+        int buildingsCount = buildingManager.getBuildingsCount();
+        long baseScore = totalSellValue + gold + (long)turnsLeft * 5000 + buildingsCount * 1000;
+        long score = Math.round(baseScore * scoreMultiplier);
+
+        rankingManager.addScore(new service.ScoreEntry(nickname, score));
+        rankingManager.displayRanking();
+
         if (gold >= goldTarget) {
-            System.out.println("Gratulacje! Osiągnąłeś wymagane złoto i wygrałeś grę!");
+            System.out.println("\n\n!!!  Gratulacje! Osiągnąłeś wymagane złoto i wygrałeś grę !!!");
         } else {
-            System.out.println("Niestety, nie udało się osiągnąć celu na czas.");
+            System.out.println("\n\n!!! Niestety, nie udało się osiągnąć celu na czas !!!");
         }
     }
-
-
-
 
     private void setTaxLevel() {
         System.out.println("Ustal poziom podatków (-8, -6, -4, -2, 0, 2, 4, 6, 8):");
@@ -290,7 +315,7 @@ public class GameService {
         System.out.println("6. Browar - " + new Brewery().getBuildingCost().getCostResources());
         System.out.println("7. Anuluj budowę");
 
-        int choice = InputUtils.getIntInput("Wybierz budynek do zbudowania:");
+        int choice = InputUtils.getIntInput("\nWybierz budynek do zbudowania:");
         Building building = null;
 
         switch (choice) {
@@ -551,7 +576,7 @@ public class GameService {
         int maxAssignableWorkers = selectedBuilding.getWorkersRequired();
         int currentAssignedWorkers = selectedBuilding.getAssignedWorkers();
 
-        System.out.println("Budynek " + selectedBuilding.getName() + " ma " +
+        System.out.println("\nBudynek " + selectedBuilding.getName() + " ma " +
                 currentAssignedWorkers + "/" + maxAssignableWorkers + " pracowników.");
 
         int newAssignedWorkers = InputUtils.getIntInput("Podaj nową liczbę pracowników (0 - " + maxAssignableWorkers + "):");
