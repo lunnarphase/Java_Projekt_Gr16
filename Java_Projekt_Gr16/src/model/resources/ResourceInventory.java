@@ -8,10 +8,12 @@ public class ResourceInventory {
 
     public ResourceInventory() {
         resources = new HashMap<>();
-        resources.put("Drewno", 0);
-        resources.put("Kamień", 0);
-        resources.put("Żelazo", 0);
-        resources.put("Jedzenie", 100); // Początkowe jedzenie
+
+        // Inicjalizacja startowych surowców
+        resources.put("Drewno", 50);
+        resources.put("Kamień", 30);
+        resources.put("Żelazo", 20);
+        resources.put("Jedzenie", 0);
         resources.put("Piwo", 0);
     }
 

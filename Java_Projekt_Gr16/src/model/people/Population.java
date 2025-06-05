@@ -26,4 +26,8 @@ public class Population {
     public int getPeasants() {
         return peasants;
     }
+
+    public int getMaxPopulation() {
+        return maxPopulation;
+    }
 }

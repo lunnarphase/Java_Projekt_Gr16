@@ -25,4 +25,8 @@ public class BuildingManager {
     public int getBuildingsCount() {
         return buildings.size();
     }
+
+    public List<Building> getBuildings() {
+        return buildings;
+    }
 }

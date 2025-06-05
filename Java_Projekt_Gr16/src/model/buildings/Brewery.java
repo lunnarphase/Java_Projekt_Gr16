@@ -2,21 +2,21 @@ package model.buildings;
 
 import model.resources.ResourceInventory;
 
-public class WoodcutterHut implements Building {
-    private int workersRequired = 2; // Maksymalna liczba pracowników
+public class Brewery implements Building {
+    private int workersRequired = 2;
     private int assignedWorkers = 0;
 
     @Override
     public String getName() {
-        return "Chatka Drwala";
+        return "Browar";
     }
 
     @Override
     public void performAction(ResourceInventory resourceInventory) {
         if (assignedWorkers > 0) {
-            int production = assignedWorkers * 5; // Każdy pracownik produkuje 5 drewna
-            resourceInventory.addResource("Drewno", production);
-            System.out.println(getName() + " wyprodukowała " + production + " jednostek drewna.");
+            int production = assignedWorkers * 2; // Każdy pracownik produkuje piwo dla siebie i kolegi
+            resourceInventory.addResource("Piwo", production);
+            System.out.println(getName() + " wyprodukował " + production + " jednostek piwa.");
         } else {
             System.out.println(getName() + " nie ma pracowników i nie produkuje surowców.");
         }
@@ -25,7 +25,7 @@ public class WoodcutterHut implements Building {
     @Override
     public BuildingCost getBuildingCost() {
         BuildingCost cost = new BuildingCost();
-        cost.addResourceCost("Drewno", 20);
+        cost.addResourceCost("Drewno", 25);
         cost.addResourceCost("Kamień", 10);
         return cost;
     }
