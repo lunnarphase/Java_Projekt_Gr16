@@ -12,11 +12,12 @@ public class Brewery implements Building {
     }
 
     @Override
-    public void performAction(ResourceInventory resourceInventory) {
+    public void performAction(ResourceInventory resourceInventory, double productionModifier) {
         if (assignedWorkers > 0) {
-            int production = assignedWorkers * 2; // Każdy pracownik produkuje piwo dla siebie i kolegi
-            resourceInventory.addResource("Piwo", production);
-            System.out.println(getName() + " wyprodukował " + production + " jednostek piwa.");
+            int baseProduction = assignedWorkers * 2; // Każdy pracownik produkuje 2 jednostki piwa.
+            int actualProduction = (int) (baseProduction * productionModifier);
+            resourceInventory.addResource("Piwo", actualProduction);
+            System.out.println(getName() + " wyprodukował " + actualProduction + " jednostek piwa." + (productionModifier != 1.0 ? " (produkcja zmodyfikowana przez wydarzenie losowe)" : ""));
         } else {
             System.out.println(getName() + " nie ma pracowników i nie produkuje surowców.");
         }

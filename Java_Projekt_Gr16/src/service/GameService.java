@@ -4,6 +4,7 @@ import model.buildings.*;
 import model.people.Population;
 import model.resources.ResourceInventory;
 import utils.InputUtils;
+import model.events.Event; // Import dla Event
 
 import java.util.List;
 import java.util.Map;
@@ -21,8 +22,11 @@ public class GameService {
     private int beerConsumption;
     private int foodConsumption;
 
+    private EventManager eventManager; // Dodanie EventManager
+    private double currentProductionModifier = 1.0; // Modyfikator produkcji
+    private double currentFoodPriceModifier = 1.0; // Modyfikator ceny jedzenia
+
     private RankingManager rankingManager = new RankingManager();
-    private long totalSellValue = 0; // sumuj w sellResource()
 
     private double scoreMultiplier = 1.0;
 
@@ -30,6 +34,7 @@ public class GameService {
         this.population = new Population();
         this.resourceInventory = new ResourceInventory();
         this.buildingManager = new BuildingManager();
+        this.eventManager = new EventManager(); // Inicjalizacja EventManager
         this.popularity = 100;
         this.gold = 500; // Początkowa ilość złota
         this.currentTurn = 1;
@@ -43,6 +48,25 @@ public class GameService {
         initializeGame();
 
         while (currentTurn <= maxTurns && gold < goldTarget) {
+            // Reset modyfikatorów na początku każdej tury
+            currentProductionModifier = 1.0;
+            currentFoodPriceModifier = 1.0;
+
+            // Logika wydarzeń
+            if (currentTurn >= 3) { // Zmiana: Eventy od 3 tury
+                Event currentEvent = eventManager.getRandomEvent();
+                if (currentEvent != null) {
+                    System.out.println("\n===========================================================================");
+                    System.out.println("                                 !!! WYDARZENIE !!!");
+                    System.out.println("---------------------------------------------------------------------------");
+                    System.out.println("Nazwa: " + currentEvent.getName());
+                    System.out.println("Opis: " + currentEvent.getDescription());
+                    currentEvent.applyEffect(this); // Zastosowanie efektu wydarzenia
+                    System.out.println("Efekt: " + currentEvent.getEffectDescription());
+                    System.out.println("===========================================================================");
+                }
+            }
+
             boolean turnEnded = false;
             while (!turnEnded) {
                 displayTurnMenu();
@@ -99,8 +123,8 @@ public class GameService {
         int choice = InputUtils.getIntInput("\nWybierz opcję:");
         switch (choice) {
             case 1:
-                maxTurns = 24;
-                goldTarget = 2000;
+                maxTurns = 18;
+                goldTarget = 3000;
                 scoreMultiplier = 1.0;
                 System.out.println("\n=================================================================");
                 System.out.println("Wybrano poziom łatwy: Musisz zebrać " + goldTarget +
@@ -109,19 +133,19 @@ public class GameService {
                 break;
             case 2:
                 maxTurns = 18;
-                goldTarget = 3000;
+                goldTarget = 4500;
                 scoreMultiplier = 1.5;
                 System.out.println("\n=================================================================");
-                System.out.println("\nWybrano poziom średni: Musisz zebrać " + goldTarget +
+                System.out.println("Wybrano poziom średni: Musisz zebrać " + goldTarget +
                         " złota w " + maxTurns + " tur.");
                 System.out.println("=================================================================");
                 break;
             case 3:
-                maxTurns = 12;
-                goldTarget = 4000;
+                maxTurns = 18;
+                goldTarget = 6000;
                 scoreMultiplier = 2.0;
                 System.out.println("\n=================================================================");
-                System.out.println("\nWybrano poziom trudny: Musisz zebrać " + goldTarget +
+                System.out.println("Wybrano poziom trudny: Musisz zebrać " + goldTarget +
                         " złota w " + maxTurns + " tur.");
                 System.out.println("=================================================================");
                 break;
@@ -136,7 +160,7 @@ public class GameService {
         }
     }
 
-
+    // Metoda inicjalizująca grę (obecnie pusta, może być rozbudowana)
     private void initializeGame() {
 
     }
@@ -160,13 +184,13 @@ public class GameService {
     private void processTurn() {
         collectTaxes();
         consumeResources();
-        produceResources();
+        produceResources(); // Modyfikator produkcji zostanie zastosowany w tej metodzie
         updatePopularity();
         updatePopulation();
     }
 
     private void collectTaxes() {
-        int taxIncome = population.getPeasants() * taxLevel;
+        int taxIncome = population.getPeasants() * taxLevel * 3;
         gold += taxIncome;
         System.out.println("Zebrano podatki: " + taxIncome + " złota.");
     }
@@ -192,9 +216,10 @@ public class GameService {
 
         if (beerConsumption > 0) {
             if (hasBeer) {
-                popularity += 4;
+                popularity += 4; // Zwiększenie popularności za piwo
                 System.out.println("Kmiecie otrzymali piwo. Popularność wzrosła o 4 punkty.");
             } else {
+                // Popularność nie wzrasta, jeśli nie ma piwa, ale nie ma też kary, chyba że to określone
                 System.out.println("Brak wystarczającej ilości piwa. Popularność nie wzrasta.");
             }
         }
@@ -202,17 +227,19 @@ public class GameService {
 
 
     private void produceResources() {
-        buildingManager.performBuildingsActions(resourceInventory);
+        // Zastosowanie modyfikatora produkcji do każdego budynku
+        // Przekazujemy modyfikator do BuildingManager, który przekaże go dalej do poszczególnych budynków
+        buildingManager.performBuildingsActions(resourceInventory, currentProductionModifier);
     }
 
     private void updatePopularity() {
         // Aktualizacja popularności na podstawie podatków
         if (taxLevel < 0) {
-            popularity += Math.abs(taxLevel) / 2;
+            popularity += Math.abs(taxLevel) / 2; // Dotacje zwiększają popularność
         } else if (taxLevel > 0) {
-            popularity -= taxLevel / 2;
+            popularity -= taxLevel / 2; // Podatki zmniejszają popularność
         } else {
-            popularity += 1;
+            popularity += 1; // Brak podatków to lekki plus dla popularności
         }
 
         // Upewnij się, że popularność jest w zakresie 0-100
@@ -222,10 +249,10 @@ public class GameService {
 
     private void updatePopulation() {
         if (popularity > 50 && population.getPeasants() < population.getMaxPopulation()) {
-            population.changePopulation(1);
+            population.changePopulation(1); // Przyrost populacji, jeśli popularność jest wysoka i jest miejsce
             System.out.println("Do miasta przybył nowy kmieć.");
         } else if (popularity < 50 && population.getPeasants() > 2) {
-            population.changePopulation(-1);
+            population.changePopulation(-1); // Spadek populacji, jeśli popularność jest niska (ale nie poniżej minimum)
             System.out.println("Kmieć opuścił miasto.");
 
             // Zmniejsz liczbę pracowników w budynkach, jeśli jest ich więcej niż aktualna populacja
@@ -235,14 +262,14 @@ public class GameService {
                 totalAssigned += b.getAssignedWorkers();
             }
             int peasants = population.getPeasants();
-            int toRemove = totalAssigned - peasants;
+            int toRemove = totalAssigned - peasants; // Liczba pracowników do usunięcia
             if (toRemove > 0) {
-                // Usuwaj pracowników od końca listy budynków
+                // Usuwaj pracowników zaczynając od końca listy budynków (mniej priorytetowe lub ostatnio dodane)
                 for (int i = buildings.size() - 1; i >= 0 && toRemove > 0; i--) {
                     Building b = buildings.get(i);
                     int assigned = b.getAssignedWorkers();
                     if (assigned > 0) {
-                        int remove = Math.min(assigned, toRemove);
+                        int remove = Math.min(assigned, toRemove); // Ile usunąć z tego budynku
                         b.setAssignedWorkers(assigned - remove);
                         toRemove -= remove;
                         System.out.println("Z budynku " + b.getName() + " odszedł pracownik.");
@@ -253,23 +280,23 @@ public class GameService {
     }
 
     private void checkGameOutcome() {
-        System.out.print("Podaj swój nick lordzie: ");
-        String nickname = utils.InputUtils.getStringInput("");
-        if (nickname.length() > 20) nickname = nickname.substring(0, 20);
-
-        int turnsLeft = maxTurns - (currentTurn - 1);
-        int buildingsCount = buildingManager.getBuildingsCount();
-        long baseScore = totalSellValue + gold + (long)turnsLeft * 5000 + buildingsCount * 1000;
-        long score = Math.round(baseScore * scoreMultiplier);
-
-        rankingManager.addScore(new service.ScoreEntry(nickname, score));
-        rankingManager.displayRanking();
-
         if (gold >= goldTarget) {
             System.out.println("\n\n!!!  Gratulacje! Osiągnąłeś wymagane złoto i wygrałeś grę !!!");
         } else {
             System.out.println("\n\n!!! Niestety, nie udało się osiągnąć celu na czas !!!");
         }
+
+        System.out.print("\n\nPodaj swój nick lordzie: ");
+        String nickname = utils.InputUtils.getStringInput("");
+        if (nickname.length() > 20) nickname = nickname.substring(0, 20);
+
+        int turnsLeft = maxTurns - (currentTurn - 1);
+        int buildingsCount = buildingManager.getBuildingsCount();
+        long baseScore = gold + (long)turnsLeft * 5000 + buildingsCount * 1000;
+        long score = Math.round(baseScore * scoreMultiplier);
+
+        rankingManager.addScore(new service.ScoreEntry(nickname, score));
+        rankingManager.displayRanking();
     }
 
     private void setTaxLevel() {
@@ -422,31 +449,40 @@ public class GameService {
 
     private void buyResource() {
         System.out.println("Dostępne surowce do kupienia:");
+        int baseFoodPrice = 80; // Bazowa cena jedzenia
+        int currentFoodPrice = (int) (baseFoodPrice * currentFoodPriceModifier); // Zastosowanie modyfikatora ceny jedzenia
+
         System.out.println("1. Drewno - 100 złota za jednostkę");
         System.out.println("2. Kamień - 100 złota za jednostkę");
         System.out.println("3. Żelazo - 100 złota za jednostkę");
-        System.out.println("4. Jedzenie - 80 złota za jednostkę");
+        System.out.println("4. Jedzenie - " + currentFoodPrice + " złota za jednostkę" + (currentFoodPriceModifier != 1.0 ? " (cena zmodyfikowana przez wydarzenie!)" : ""));
         System.out.println("5. Piwo - 120 złota za jednostkę");
         System.out.println("9. Anuluj zakup");
 
         int choice = InputUtils.getIntInput("Wybierz surowiec:");
         String resourceName = null;
+        int pricePerUnit = 0;
 
         switch (choice) {
             case 1:
                 resourceName = "Drewno";
+                pricePerUnit = 100;
                 break;
             case 2:
                 resourceName = "Kamień";
+                pricePerUnit = 100;
                 break;
             case 3:
                 resourceName = "Żelazo";
+                pricePerUnit = 100;
                 break;
             case 4:
                 resourceName = "Jedzenie";
+                pricePerUnit = currentFoodPrice;
                 break;
             case 5:
                 resourceName = "Piwo";
+                pricePerUnit = 120;
                 break;
             case 9:
                 return;
@@ -456,23 +492,11 @@ public class GameService {
         }
 
         int quantity = InputUtils.getIntInput("Podaj ilość do kupienia:");
-        int cost;
-        switch (resourceName) {
-            case "Drewno":
-            case "Kamień":
-            case "Żelazo":
-                cost = quantity * 100;
-                break;
-            case "Jedzenie":
-                cost = quantity * 80;
-                break;
-            case "Piwo":
-                cost = quantity * 120;
-                break;
-            default:
-                System.out.println("Nieprawidłowy surowiec.");
-                return;
+        if (quantity <= 0) {
+            System.out.println("Ilość musi być dodatnia.");
+            return;
         }
+        int cost = quantity * pricePerUnit;
 
         System.out.println("Koszt zakupu " + quantity + " jednostek " + resourceName + ": " + cost + " złota.");
         int paymentChoice = InputUtils.getIntInput("Wybierz opcję (1 - zapłać, 9 - anuluj):");
@@ -597,4 +621,33 @@ public class GameService {
         System.out.println("\nUstawiono " + newAssignedWorkers + " pracowników w budynku " + selectedBuilding.getName() + ".");
     }
 
+    // Metody pomocnicze dla Eventów
+    public void changeGold(int amount) {
+        this.gold += amount;
+    }
+
+    public void changePopularity(int amount) {
+        this.popularity += amount;
+        if (this.popularity > 100) this.popularity = 100;
+        if (this.popularity < 0) this.popularity = 0;
+    }
+
+    public ResourceInventory getResourceInventory() {
+        return this.resourceInventory;
+    }
+
+    public void setProductionModifier(double modifier) {
+        this.currentProductionModifier = modifier;
+        if (modifier != 1.0) {
+            System.out.println("Modyfikator produkcji na tę turę: " + modifier); // Informacja dla gracza o zmianie modyfikatora
+        }
+    }
+
+    public void setFoodPriceModifier(double modifier) {
+        this.currentFoodPriceModifier = modifier;
+         if (modifier != 1.0) {
+            System.out.println("Modyfikator ceny jedzenia na tę turę: " + modifier); // Informacja dla gracza o zmianie modyfikatora
+        }
+    }
 }
+

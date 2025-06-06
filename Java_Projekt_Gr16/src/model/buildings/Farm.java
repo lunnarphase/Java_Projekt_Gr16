@@ -12,11 +12,12 @@ public class Farm implements Building {
     }
 
     @Override
-    public void performAction(ResourceInventory resourceInventory) {
+    public void performAction(ResourceInventory resourceInventory, double productionModifier) {
         if (assignedWorkers > 0) {
-            int production = assignedWorkers * 6; // Każdy pracownik produkuje 6 jedzenia
-            resourceInventory.addResource("Jedzenie", production);
-            System.out.println(getName() + " wyprodukowała " + production + " jednostek jedzenia.");
+            int baseProduction = assignedWorkers * 6; // Każdy pracownik produkuje 6 jednostek jedzenia.
+            int actualProduction = (int) (baseProduction * productionModifier);
+            resourceInventory.addResource("Jedzenie", actualProduction);
+            System.out.println(getName() + " wyprodukowała " + actualProduction + " jednostek jedzenia." + (productionModifier != 1.0 ? " (produkcja zmodyfikowana przez wydarzenie losowe)" : ""));
         } else {
             System.out.println(getName() + " nie ma pracowników i nie produkuje surowców.");
         }

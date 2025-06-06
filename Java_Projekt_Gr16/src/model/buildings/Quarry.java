@@ -3,7 +3,7 @@ package model.buildings;
 import model.resources.ResourceInventory;
 
 public class Quarry implements Building {
-    private int workersRequired = 2; // Maksymalna liczba pracowników
+    private int workersRequired = 2; // Wymagana liczba pracowników do osiągnięcia pełnej efektywności kamieniołomu.
     private int assignedWorkers = 0;
 
     @Override
@@ -12,11 +12,12 @@ public class Quarry implements Building {
     }
 
     @Override
-    public void performAction(ResourceInventory resourceInventory) {
+    public void performAction(ResourceInventory resourceInventory, double productionModifier) {
         if (assignedWorkers > 0) {
-            int production = assignedWorkers * 4; // Każdy pracownik produkuje 4 kamienia
-            resourceInventory.addResource("Kamień", production);
-            System.out.println(getName() + " wyprodukował " + production + " jednostek kamienia.");
+            int baseProduction = assignedWorkers * 4; // Każdy pracownik produkuje 4 jednostki kamienia.
+            int actualProduction = (int) (baseProduction * productionModifier);
+            resourceInventory.addResource("Kamień", actualProduction);
+            System.out.println(getName() + " wyprodukował " + actualProduction + " jednostek kamienia." + (productionModifier != 1.0 ? " (produkcja zmodyfikowana przez wydarzenie losowe)" : ""));
         } else {
             System.out.println(getName() + " nie ma pracowników i nie produkuje surowców.");
         }

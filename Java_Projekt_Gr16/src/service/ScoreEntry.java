@@ -19,6 +19,6 @@ public class ScoreEntry implements Comparable<ScoreEntry> {
 
     @Override
     public int compareTo(ScoreEntry o) {
-        return Long.compare(o.score, this.score); // malejąco
+        return Long.compare(o.score, this.score); // Sortowanie malejąco według wyniku
     }
 }

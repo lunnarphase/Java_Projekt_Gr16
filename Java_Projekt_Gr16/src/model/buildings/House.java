@@ -10,8 +10,8 @@ public abstract class House implements Building {
     }
 
     @Override
-    public void performAction(ResourceInventory resourceInventory) {
-        // Dom nie produkuje surowców
+    public void performAction(ResourceInventory resourceInventory, double productionModifier) {
+        // Domy nie produkują surowców, ich główną funkcją jest zwiększenie maksymalnego limitu populacji.
     }
 
     @Override

@@ -3,7 +3,7 @@ package model.buildings;
 import model.resources.ResourceInventory;
 
 public class WoodcutterHut implements Building {
-    private int workersRequired = 2; // Maksymalna liczba pracowników
+    private int workersRequired = 2; // Wymagana liczba pracowników do osiągnięcia pełnej efektywności chatki drwala.
     private int assignedWorkers = 0;
 
     @Override
@@ -12,11 +12,12 @@ public class WoodcutterHut implements Building {
     }
 
     @Override
-    public void performAction(ResourceInventory resourceInventory) {
+    public void performAction(ResourceInventory resourceInventory, double productionModifier) {
         if (assignedWorkers > 0) {
-            int production = assignedWorkers * 5; // Każdy pracownik produkuje 5 drewna
-            resourceInventory.addResource("Drewno", production);
-            System.out.println(getName() + " wyprodukowała " + production + " jednostek drewna.");
+            int baseProduction = assignedWorkers * 5; // Każdy pracownik produkuje 5 jednostek drewna.
+            int actualProduction = (int) (baseProduction * productionModifier);
+            resourceInventory.addResource("Drewno", actualProduction);
+            System.out.println(getName() + " wyprodukowała " + actualProduction + " jednostek drewna." + (productionModifier != 1.0 ? " (produkcja zmodyfikowana przez wyidarzene losowe)" : ""));
         } else {
             System.out.println(getName() + " nie ma pracowników i nie produkuje surowców.");
         }

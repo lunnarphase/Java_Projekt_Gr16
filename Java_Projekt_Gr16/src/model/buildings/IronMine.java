@@ -12,11 +12,12 @@ public class IronMine implements Building {
     }
 
     @Override
-    public void performAction(ResourceInventory resourceInventory) {
+    public void performAction(ResourceInventory resourceInventory, double productionModifier) {
         if (assignedWorkers > 0) {
-            int production = assignedWorkers * 5; // Każdy pracownik produkuje 5 żelaza
-            resourceInventory.addResource("Żelazo", production);
-            System.out.println(getName() + " wyprodukowała " + production + " jednostek żelaza.");
+            int baseProduction = assignedWorkers * 5; // Każdy pracownik produkuje 5 jednostek żelaza.
+            int actualProduction = (int) (baseProduction * productionModifier);
+            resourceInventory.addResource("Żelazo", actualProduction);
+            System.out.println(getName() + " wyprodukowała " + actualProduction + " jednostek żelaza." + (productionModifier != 1.0 ? " (produkcja zmodyfikowana przez wydarzenie losowe)" : ""));
         } else {
             System.out.println(getName() + " nie ma pracowników i nie produkuje surowców.");
         }
