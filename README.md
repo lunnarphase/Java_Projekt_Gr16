@@ -125,13 +125,13 @@ W każdej turze gracz ma dostęp do następujących opcji:
 
 <br>
 
-## 4. Zagadnienia Techniczne Projektu
+## 4. Zagadnienia Techniczne Projektu 🛠️💻
 
 Projekt został zrealizowany w języku Java, wykorzystując różne koncepcje programowania obiektowego i standardowe biblioteki Javy.
 
 <br>
 
-### Struktura Projektu
+### Struktura Projektu 📂
 Kod zorganizowany jest w następujące główne pakiety:
 *   `main`: Zawiera główną klasę uruchomieniową `Game.java`.
 *   `model`: Definiuje struktury danych gry:
@@ -148,7 +148,7 @@ Kod zorganizowany jest w następujące główne pakiety:
 
 <br>
 
-### Wykorzystane Koncepcje i Technologie
+### Wykorzystane Koncepcje i Technologie 🧠💡
 *   **Programowanie Obiektowe (OOP):**
     *   **Polimorfizm:**
         *   Interfejs `Building` jest implementowany przez różne klasy budynków (`WoodcutterHut`, `Farm`, `Quarry`, `IronMine`, `Brewery`, `SimpleHouse` dziedziczący po `House`). Każda klasa dostarcza własną implementację metod `performAction()` (produkcja surowców z uwzględnieniem modyfikatora) i `getBuildingCost()`.
