@@ -109,7 +109,7 @@ W każdej turze gracz ma dostęp do następujących opcji:
 
 ### Wydarzenia Losowe
 *   **Aktywacja:** Mogą zacząć pojawiać się od 3. tury.
-*   **Szansa:** 15% na wystąpienie wydarzenia na początku każdej tury (po 2. turze).
+*   **Szansa:** 20% na wystąpienie wydarzenia na początku każdej tury (po 2. turze).
 *   **Rodzaje:**
     *   **Pozytywne:** Np. "Dobra sława" (+złoto, +popularność), "Obfite zbiory" (+jedzenie).
     *   **Negatywne:** Np. "Klęska nieurodzaju" (-jedzenie, -popularność), "Problemy ze skarbcem" (-złoto, -popularność).
