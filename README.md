@@ -6,18 +6,18 @@ Witaj w świecie, gdzie Twoje umiejętności zarządzania i strategicznego myśl
 
 <br>
 
-## 1. Zasady Rozgrywki
+## 1. Zasady Rozgrywki 🎲
 
 ### 🎯 Cel Gry
 Głównym celem gry jest zgromadzenie określonej ilości **złota** w wyznaczonej liczbie **tur**. Ilość złota i liczba tur zależą od wybranego poziomu trudności.
 
-### Poziomy Trudności
+### Poziomy Trudności 📊
 Gra oferuje trzy poziomy trudności:
 *   **Łatwy:** Mniejsza wymagana ilość złota. Mnożnik punktów x1.
 *   **Średni:** Zbalansowana liczba tur i cel złota. Mnożnik punktów x1.5.
 *   **Trudny:** Większa wymagana ilość złota. Mnożnik punktów x2.
 
-### Tury
+### Tury ⏳
 Rozgrywka podzielona jest na tury. W każdej turze gracz podejmuje decyzje i wykonuje akcje. Po zakończeniu tury przez gracza, następuje faza przetwarzania, która obejmuje:
 *   Zbieranie podatków.
 *   Konsumpcję jedzenia i piwa przez mieszkańców.
@@ -25,12 +25,12 @@ Rozgrywka podzielona jest na tury. W każdej turze gracz podejmuje decyzje i wyk
 *   Aktualizację poziomu popularności.
 *   Aktualizację liczby ludności (migracje).
 
-### Zakończenie Gry
+### Zakończenie Gry 🏁
 Gra kończy się na dwa sposoby:
 *   **Wygrana:** Gracz osiągnął wymagany cel złota przed upływem limitu tur.
 *   **Przegrana:** Gracz nie zdołał osiągnąć celu złota w wyznaczonej liczbie tur.
 
-### Punktacja i Ranking
+### Punktacja i Ranking 📜
 Po zakończeniu gry (niezależnie od wyniku), obliczany jest wynik gracza. Na wynik wpływają:
 *   Ilość posiadanego złota.
 *   Liczba pozostałych tur (premia za szybkie ukończenie).
