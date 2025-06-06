@@ -2,8 +2,9 @@
 
 ## Opis Gry
 
-Witaj w świecie, gdzie Twoje umiejętności zarządzania i strategicznego myślenia zostaną poddane próbie! W tej grze wcielasz się w rolę lorda, którego zadaniem jest rozwijanie swojej osady, dbanie o dobrobyt mieszkańców i gromadzenie bogactwa. <br>
+Witaj w świecie, gdzie Twoje umiejętności zarządzania i strategicznego myślenia zostaną poddane próbie! W tej grze wcielasz się w rolę lorda, którego zadaniem jest rozwijanie swojej osady, dbanie o dobrobyt mieszkańców i gromadzenie bogactwa. 
 
+<br>
 
 ## 1. Zasady Rozgrywki
 
@@ -37,6 +38,8 @@ Po zakończeniu gry (niezależnie od wyniku), obliczany jest wynik gracza. Na wy
 *   Mnożnik wynikający z poziomu trudności.
 
 Gracz podaje swój nick, a wynik zapisywany jest w lokalnym rankingu (`ranking.txt`), który wyświetla 10 najlepszych wyników. <br>
+
+<br>
 
 ## 2. Mechaniki Gry - Opis opcji z menu gracza
 
