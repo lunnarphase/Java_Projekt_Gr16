@@ -1,8 +1,10 @@
 # Gra Strategiczna - Zarządzanie Osadą 2025
 
+
 ## Opis Gry
 
 Witaj w świecie, gdzie Twoje umiejętności zarządzania i strategicznego myślenia zostaną poddane próbie! W tej grze wcielasz się w rolę lorda, którego zadaniem jest rozwijanie swojej osady, dbanie o dobrobyt mieszkańców i gromadzenie bogactwa.
+
 
 ## 1. Zasady Rozgrywki
 
