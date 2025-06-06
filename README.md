@@ -1,4 +1,4 @@
-# Gra Strategiczna - Zarządzanie Osadą 2025
+# Gra Strategiczna - Zarządzanie Osadą 2025 🏰🌾
 
 ## Opis Gry
 
@@ -8,7 +8,7 @@ Witaj w świecie, gdzie Twoje umiejętności zarządzania i strategicznego myśl
 
 ## 1. Zasady Rozgrywki
 
-### Cel Gry
+### 🎯 Cel Gry
 Głównym celem gry jest zgromadzenie określonej ilości **złota** w wyznaczonej liczbie **tur**. Ilość złota i liczba tur zależą od wybranego poziomu trudności.
 
 ### Poziomy Trudności
@@ -41,29 +41,29 @@ Gracz podaje swój nick, a wynik zapisywany jest w lokalnym rankingu (`ranking.t
 
 <br>
 
-## 2. Mechaniki Gry - Opis opcji z menu gracza
+## 🕹️ 2. Mechaniki Gry - Opis opcji z menu gracza
 
 W każdej turze gracz ma dostęp do następujących opcji:
 
-### 1. Ustal poziom podatków
+### 1. Ustal poziom podatków 💰
 *   **Opis:** Pozwala ustawić poziom opodatkowania mieszkańców.
 *   **Zakres:** Od -8 (dopłaty dla mieszkańców) do +8 (wysokie podatki). Podatki są pobierane od każdego kmiecia.
 *   **Wpływ na złoto:** Dodatnie podatki zwiększają dochód w złocie, ujemne go zmniejszają.
 *   **Wpływ na popularność:** Wysokie podatki obniżają popularność, niskie lub ujemne ją podnoszą.
 
-### 2. Ustal spożycie piwa
+### 2. Ustal spożycie piwa 🍺
 *   **Opis:** Decyduje, czy mieszkańcy będą spożywać piwo.
 *   **Opcje:** 0 (brak spożycia) lub 1 (jedna jednostka piwa na mieszkańca na turę).
 *   **Wpływ na popularność:** Jeśli mieszkańcy spożywają piwo (i jest ono dostępne w magazynach), popularność wzrasta.
 *   **Wymagania:** Wymaga posiadania surowca "Piwo".
 
-### 3. Ustal spożycie jedzenia
+### 3. Ustal spożycie jedzenia 🍞
 *   **Opis:** Określa ilość jedzenia konsumowanego przez każdego mieszkańca.
 *   **Opcje:** 1 lub 2 jednostki jedzenia na mieszkańca na turę.
 *   **Wpływ na popularność:** Zaspokojenie głodu jest kluczowe. Wyższe racje (jeśli dostępne) mogą bardziej zwiększyć popularność. Brak jedzenia drastycznie obniża popularność.
 *   **Wymagania:** Wymaga posiadania surowca "Jedzenie".
 
-### 4. Zbuduj budynek
+### 4. Zbuduj budynek 🏗️
 *   **Opis:** Pozwala na wznoszenie nowych budynków w osadzie.
 *   **Dostępne budynki:**
     *   **Chatka Drwala:** Produkuje Drewno.
@@ -75,45 +75,45 @@ W każdej turze gracz ma dostęp do następujących opcji:
 *   **Koszt budowy:** Każdy budynek wymaga określonej ilości surowców (głównie Drewna i Kamienia) do budowy.
 *   **Pracownicy:** Budynki produkcyjne wymagają przydzielenia pracowników do generowania surowców.
 
-### 5. Sprawdź liczbę budynków
+### 5. Sprawdź liczbę budynków 🏘️
 *   **Opis:** Wyświetla listę wszystkich posiadanych budynków oraz ich łączną liczbę.
 
-### 6. Sprawdź ilość zapasów
+### 6. Sprawdź ilość zapasów 📦
 *   **Opis:** Pokazuje aktualny stan wszystkich posiadanych surowców (Drewno, Kamień, Żelazo, Jedzenie, Piwo) oraz ilość złota.
 
-### 7. Handluj
+### 7. Handluj 🤝
 *   **Opis:** Umożliwia kupno lub sprzedaż surowców.
     *   **Kup surowiec:** Gracz może kupić Drewno, Kamień, Żelazo, Jedzenie, Piwo za złoto. Ceny są stałe, z wyjątkiem ceny jedzenia, która może być modyfikowana przez wydarzenia losowe.
     *   **Sprzedaj surowiec:** Gracz może sprzedać posiadane surowce za złoto po ustalonych cenach.
 
-### 8. Przydziel pracowników do budynków
+### 8. Przydziel pracowników do budynków 👷‍♂️👷‍♂️
 *   **Opis:** Pozwala zarządzać siłą roboczą w osadzie.
 *   **Mechanika:** Gracz może przydzielać wolnych kmieci do pracy w budynkach produkcyjnych. Każdy budynek ma określony limit pracowników, których może przyjąć. Im więcej pracowników w budynku (do jego limitu), tym więcej surowców produkuje.
 
-### 9. Zakończ turę
+### 9. Zakończ turę ⏭️
 *   **Opis:** Kończy aktualną turę gracza i inicjuje fazę przetwarzania końca tury.
 
 <br>
 
-## 3. Kluczowe Systemy Gry
+## 3. Kluczowe Systemy Gry ⚙️
 
-### Popularność
-*   **Zakres:** Wartość od 0 do 100.
+### Popularność 📊
+*   **Zakres:** Wartość od 0 😠 do 100 😍.
 *   **Wpływ:** Bezpośrednio wpływa na migrację ludności.
     *   Popularność > 50: Populacja wzrasta o 1 kmiecia na turę (jeśli są wolne miejsca w domach).
     *   Popularność < 50: Kmiecie odchodzą z osady, co zmniejsza liczbę mieszkańców.
 *   **Czynniki modyfikujące:**
-    *   Poziom podatków.
-    *   Dostępność i racje jedzenia.
-    *   Dostępność i spożycie piwa.
-    *   Wydarzenia losowe.
+    *   Poziom podatków. 💰
+    *   Dostępność i racje jedzenia. 🍞
+    *   Dostępność i spożycie piwa. 🍺
+    *   Wydarzenia losowe. 🎲
 
-### Żywność i Piwo
+### Żywność i Piwo 🍞🍺
 *   Kmiecie konsumują jedzenie co turę. Brak jedzenia prowadzi do głodu i znacznego spadku popularności.
 *   Jeśli ustawiono spożycie piwa, kmiecie będą je konsumować, co pozytywnie wpływa na popularność (o ile piwo jest dostępne).
 *   Produkcja: Jedzenie pochodzi z Farm, Piwo z Browarów. Można je również kupić.
 
-### Wydarzenia Losowe
+### Wydarzenia Losowe 🎲
 *   **Aktywacja:** Mogą zacząć pojawiać się od 3. tury.
 *   **Szansa:** 20% na wystąpienie wydarzenia na początku każdej tury (po 2. turze).
 *   **Rodzaje:**
@@ -177,5 +177,5 @@ Kod zorganizowany jest w następujące główne pakiety:
 <br>
 
 ---
-Życzymy udanej rozgrywki i strategicznych sukcesów!
+Życzymy udanej rozgrywki i strategicznych sukcesów! 🏆🌟
 
