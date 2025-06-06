@@ -1,4 +1,4 @@
-# Gra Strategiczna: Zarządzanie Osadą
+# Gra Strategiczna - Zarządzanie Osadą 2025
 
 ## Opis Gry
 
