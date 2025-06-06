@@ -93,6 +93,8 @@ W każdej turze gracz ma dostęp do następujących opcji:
 ### 9. Zakończ turę
 *   **Opis:** Kończy aktualną turę gracza i inicjuje fazę przetwarzania końca tury.
 
+<br>
+
 ## 3. Kluczowe Systemy Gry
 
 ### Popularność
@@ -121,9 +123,13 @@ W każdej turze gracz ma dostęp do następujących opcji:
     *   **Neutralne:** Np. "Wydarzenie astronomiczne" (brak efektu).
 *   **Efekty:** Wpływają na stan złota, surowców, popularności, a także mogą wprowadzać tymczasowe modyfikatory (np. zmiana ceny zakupu jedzenia, modyfikator produkcji).
 
+<br>
+
 ## 4. Zagadnienia Techniczne Projektu
 
 Projekt został zrealizowany w języku Java, wykorzystując różne koncepcje programowania obiektowego i standardowe biblioteki Javy.
+
+<br>
 
 ### Struktura Projektu
 Kod zorganizowany jest w następujące główne pakiety:
@@ -139,7 +145,8 @@ Kod zorganizowany jest w następujące główne pakiety:
     *   `RankingManager`: Obsługuje wczytywanie i zapisywanie rankingu do pliku.
     *   `ScoreEntry`: Reprezentuje pojedynczy wpis w rankingu.
 *   `utils`: Klasy pomocnicze, np. `InputUtils` do obsługi wejścia od użytkownika.
-*   `exceptions` (jeśli istnieje): Dedykowany pakiet na niestandardowe wyjątki.
+
+<br>
 
 ### Wykorzystane Koncepcje i Technologie
 *   **Programowanie Obiektowe (OOP):**
@@ -166,6 +173,8 @@ Kod zorganizowany jest w następujące główne pakiety:
     *   Oprócz wbudowanych kolekcji, projekt definiuje własne proste struktury danych, takie jak `BuildingCost` (reprezentująca koszt budowy) czy `ScoreEntry` (reprezentująca wpis w rankingu).
 *   **Modularność:**
     *   Kod jest podzielony na logiczne moduły (klasy i pakiety), co ułatwia zrozumienie, zarządzanie i potencjalną rozbudowę projektu. Każda klasa ma jasno zdefiniowaną odpowiedzialność.
+
+<br>
 
 ---
 Życzymy udanej rozgrywki i strategicznych sukcesów!
